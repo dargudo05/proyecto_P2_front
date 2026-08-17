@@ -45,7 +45,7 @@ ROOT_URLCONF = 'frontend_nomina.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.DjangoTemplates',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -57,7 +57,6 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'frontend_nomina.wsgi.application'
 
 DATABASES = {
