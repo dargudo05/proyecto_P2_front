@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 
-SECRET_KEY = 'django-insecure-frontend-nomina-key-ec-2026'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-frontend-nomina-key-ec-2026')
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Middleware para archivos estáticos en produccion
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -44,7 +45,7 @@ ROOT_URLCONF = 'frontend_nomina.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -87,6 +88,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # FastAPI Backend URL
 API_BASE_URL = os.getenv("API_BASE_URL", "http://127.0.0.1:8000")
 
@@ -95,6 +99,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:8001",
     "http://localhost:8000",
     "http://localhost:8001",
+    "https://proyectop2front-production.up.railway.app",
 ]
 
 LOGIN_URL = '/auth/login/'
