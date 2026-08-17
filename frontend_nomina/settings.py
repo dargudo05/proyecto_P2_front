@@ -91,12 +91,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # FastAPI Backend URL
-API_BASE_URL = os.getenv("API_BASE_URL", "http://127.0.0.1:8000")
+API_BASE_URL = os.getenv("API_BASE_URL", "http://127.0.0.1:8080")
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:8000",
+    "http://127.0.0.1:8080",
     "http://127.0.0.1:8001",
-    "http://localhost:8000",
+    "http://localhost:8080",
     "http://localhost:8001",
     "https://proyectop2front-production.up.railway.app",
 ]
